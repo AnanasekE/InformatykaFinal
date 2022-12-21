@@ -1,0 +1,45 @@
+<h1>Hash Function</h1>
+
+<h2>Enter a message to hash:</h2>
+<form method="post" action="/hash">
+    <label for="message">Message:</label><br>
+    <input type="text" id="message" name="message"><br>
+    <input type="submit" value="Hash">
+</form>
+
+<h2>Enter a hash to crack:</h2>
+<form method="post" action="/crack">
+    <label for="hash">Hash:</label><br>
+    <input type="text" id="hash" name="hash"><br>
+    <label>Cracking method:</label><br>
+    <input type="radio" id="wordlist" name="cracking_method" value="wordlist" checked>
+    <label for="wordlist">Wordlist</label><br>
+    <input type="radio" id="brute_force" name="cracking_method" value="brute_force">
+    <label for="brute_force">Brute force</label><br>
+    <div id="wordlist_options">
+        <label for="wordlist">Wordlist:</label><br>
+        <select id="wordlist" name="wordlist">
+            <option value="wordlist10.txt">Rockyou 10</option>
+            <option value="wordlist20.txt">Rockyou 20</option>
+            <option value="wordlist40.txt">Rockyou 40</option>
+        </select><br>
+    </div>
+    <div id="brute_force_options" style="display:none">
+        <label for="max_length">Max length:</label><br>
+        <input type="number" id="max_length" name="max_length" value="10"><br>
+    </div>
+    <input type="submit" value="Crack">
+</form>
+
+<script>
+    // Show/hide the wordlist/brute force options based on the selected cracking method
+    document.querySelector('#wordlist').addEventListener('change', function () {
+        document.querySelector('#wordlist_options').style.display = 'block';
+        document.querySelector('#brute_force_options').style.display = 'none';
+    });
+    document.querySelector('#brute_force').addEventListener('change', function () {
+        document.querySelector('#wordlist_options').style.display = 'none';
+        document.querySelector('#brute_force_options').style.display = 'block';
+    });
+</script>
+
