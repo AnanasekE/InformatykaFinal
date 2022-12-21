@@ -1,45 +1,151 @@
-<h1>Hash Function</h1>
-
-<h2>Enter a message to hash:</h2>
-<form method="post" action="/hash">
-    <label for="message">Message:</label><br>
-    <input type="text" id="message" name="message"><br>
-    <input type="submit" value="Hash">
-</form>
-
-<h2>Enter a hash to crack:</h2>
-<form method="post" action="/crack">
-    <label for="hash">Hash:</label><br>
-    <input type="text" id="hash" name="hash"><br>
-    <label>Cracking method:</label><br>
-    <input type="radio" id="wordlist" name="cracking_method" value="wordlist" checked>
-    <label for="wordlist">Wordlist</label><br>
-    <input type="radio" id="brute_force" name="cracking_method" value="brute_force">
-    <label for="brute_force">Brute force</label><br>
-    <div id="wordlist_options">
-        <label for="wordlist">Wordlist:</label><br>
-        <select id="wordlist" name="wordlist">
-            <option value="wordlist10.txt">Rockyou 10</option>
-            <option value="wordlist20.txt">Rockyou 20</option>
-            <option value="wordlist40.txt">Rockyou 40</option>
-        </select><br>
-    </div>
-    <div id="brute_force_options" style="display:none">
-        <label for="max_length">Max length:</label><br>
-        <input type="number" id="max_length" name="max_length" value="10"><br>
-    </div>
-    <input type="submit" value="Crack">
-</form>
+<html lang="en">
+<head>
+    <title>Hash Function</title>
+</head>
+<body>
+<h1>Hasher / Hash Cracker</h1>
+<h2>Sha256</h2>
+<div class="hasher">
+    <h2 class="Title">Enter a message to hash:</h2>
+    <form method="post" action="/hash">
+        <div>
+            <label for="message">Message:</label>
+            <input type="text" id="message" name="message"/>
+        </div>
+        <div>
+            <input type="submit" value="Hash"/>
+        </div>
+    </form>
+</div>
+<div class="cracker">
+    <h2 class="Title">Enter a hash to crack:</h2>
+    <form method="post" action="/crack">
+        <div>
+            <label for="hash">Hash:</label>
+            <input type="text" id="hash" name="hash"/>
+        </div>
+        <div>
+            <label>Cracking method:</label>
+            <div>
+                <input type="radio" id="wordlist" name="cracking_method" value="wordlist" checked/>
+                <label for="wordlist">Wordlist</label>
+            </div>
+            <div>
+                <input type="radio" id="brute_force" name="cracking_method" value="brute_force"/>
+                <label for="brute_force">Brute force</label>
+            </div>
+        </div>
+        <div id="wordlist_options">
+            <div>
+                <label for="wordlist">Wordlist:</label>
+                <select id="wordlist" name="wordlist">
+                    <option value="wordlist10.txt">Rockyou 10</option>
+                    <option value="wordlist20.txt">Rockyou 20</option>
+                    <option value="wordlist40.txt">Rockyou 40</option>
+                </select>
+            </div>
+        </div>
+        <div id="brute_force_options" style="display:none">
+            <div>
+                <label for="max_length">Max length:</label>
+                <input type="number" id="max_length" name="max_length" value="10"/>
+            </div>
+        </div>
+        <div>
+            <input type="submit" value="Crack"/>
+        </div>
+    </form>
+</div>
 
 <script>
     // Show/hide the wordlist/brute force options based on the selected cracking method
-    document.querySelector('#wordlist').addEventListener('change', function () {
-        document.querySelector('#wordlist_options').style.display = 'block';
-        document.querySelector('#brute_force_options').style.display = 'none';
+    document.querySelector("#wordlist").addEventListener("change", function () {
+        document.querySelector("#wordlist_options").style.display = "block";
+        document.querySelector("#brute_force_options").style.display = "none";
     });
-    document.querySelector('#brute_force').addEventListener('change', function () {
-        document.querySelector('#wordlist_options').style.display = 'none';
-        document.querySelector('#brute_force_options').style.display = 'block';
+    document.querySelector("#brute_force").addEventListener("change", function () {
+        document.querySelector("#wordlist_options").style.display = "none";
+        document.querySelector("#brute_force_options").style.display = "block";
     });
 </script>
+</body>
+<style>
+    .cracker {
+        width: 400px;
+        padding-right: 400px;
+        float: right;
+    }
 
+    .hasher {
+        width: 400px;
+        padding-left: 400px;
+        float: left;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #333;
+        color: #fff;
+        height: 100%;
+    }
+
+    h1 {
+        text-align: center;
+        margin: 20px 0;
+        color: #fff;
+    }
+
+    h2 {
+        text-align: center;
+        margin: 20px 0;
+        color: #fff;
+    }
+
+    form {
+        margin: 20px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    form > * {
+        margin: 10px 0;
+    }
+
+    input[type="text"], select {
+        width: 300px;
+        height: 30px;
+        font-size: 16px;
+        background-color: #666;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 0 10px;
+        color: #fff;
+    }
+
+    input[type="submit"] {
+        width: 100px;
+        height: 40px;
+        font-size: 16px;
+        background-color: #484848;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #666;
+    }
+
+    .Title {
+        font-size: 24px;
+        font-weight: bold;
+        margin: 20px 0;
+        display: flex;
+        justify-content: center;
+    }
+</style>
+</html>
