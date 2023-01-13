@@ -15,17 +15,25 @@ def home():
 @app.route('/hash', methods=['POST'])
 def hash_message():
     message = request.form['message']
-    hasher = hashlib.sha256()
-    hasher.update(message.encode('utf-8'))
-    hash = hasher.hexdigest()
+    hash = custom_hash(message)
     return render_template('results.html', message=message, hash=hash)
+
+
+def custom_hash(message):
+    ascii_values = [ord(c) for c in message]
+    combined = sum(ascii_values)
+    key = combined % 24
+    encrypted = ""
+    for c in message:
+        encrypted += chr((ord(c) + key) % 24 + 97)
+    return encrypted
 
 
 def crack_hash_brute_force(hash, max_length):
     for length in range(1, max_length + 1):
         for message in itertools.product(string.ascii_letters + string.digits, repeat=length):
             message_str = "".join(message)
-            message_hash = hashlib.sha256(message_str.encode('utf-8')).hexdigest()
+            message_hash = custom_hash(message_str)
             if message_hash == hash:
                 return message_str
     return "Hash not found"
@@ -34,7 +42,7 @@ def crack_hash_brute_force(hash, max_length):
 def crack_hash_wordlist(hash, wordlist):
     for word in wordlist:
         word = word.strip()
-        message_hash = hashlib.sha256(word.encode('utf-8')).hexdigest()
+        message_hash = custom_hash(word)
         if message_hash == hash:
             return word
     return "Hash not found"
